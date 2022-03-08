@@ -6,7 +6,7 @@ import { CartItem } from '../common/cart-item';
   providedIn: 'root'
 })
 export class CartService {
-
+  
   cartItems: CartItem[] = [];
 
   totalPrice: Subject<number> = new Subject<number>();
@@ -55,6 +55,7 @@ export class CartService {
     //log cart data just for debugging purposes
     this.logCartData(totalPriceValue, totalQuantityValue);
   }
+
   logCartData(totalPriceValue: number, totalQuantityValue: number) {
     console.log(`Contents of the cart`);
     for (let tempCartItem of this.cartItems){
@@ -63,5 +64,24 @@ export class CartService {
                     unitPrice: ${tempCartItem.unitPrice}, subTotalPrice: ${subTotalPrice}`);
     }
     console.log(`totalPrice: ${totalPriceValue.toFixed(2)}, totalQuantity: ${totalQuantityValue}`);
+  }
+
+  decrementQuantity(theCartItem: CartItem) {
+    theCartItem.quantity--;
+
+    if (theCartItem.quantity === 0){
+      this.remove(theCartItem);
+    } else {
+      this.computeCartTotals();
+    }
+  }
+
+  remove(theCartItem: CartItem) {
+    const itemIndex = this.cartItems.findIndex(tempCartItem => tempCartItem.id === theCartItem.id);
+    if (itemIndex > -1) {
+      this.cartItems.splice(itemIndex, 1);
+
+      this.computeCartTotals();
+    }
   }
 }
