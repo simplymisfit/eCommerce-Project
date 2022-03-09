@@ -20,4 +20,20 @@ export class RosochackiShopFormService {
     //the of operator from rxjs will wrap an object as an Observable
     return of(data);
   }
+
+  getCreditCardYears(): Observable<number[]>{
+    let data: number[] = [];
+
+    //build an array for "Year" dropdown list
+
+    const startYear: number = new Date().getFullYear();
+    const endYear: number = startYear + 10;
+
+    for (let theYear = startYear; theYear <= endYear; theYear++) {
+      data.push(theYear);
+    }
+
+    //the of operator from rxjs will wrap an object as an Observable
+    return of(data);
+  }
 }
