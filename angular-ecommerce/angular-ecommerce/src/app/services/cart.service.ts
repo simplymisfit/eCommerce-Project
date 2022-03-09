@@ -7,12 +7,18 @@ import { CartItem } from '../common/cart-item';
 })
 export class CartService {
   
-  cartItems: CartItem[] = [];
+  cartItems: CartItem[];
 
   totalPrice: Subject<number> = new Subject<number>();
   totalQuantity: Subject<number> = new Subject<number>();
 
-  constructor() { }
+  constructor() { 
+    this.cartItems = JSON.parse(sessionStorage.getItem('cartItems')) != null ? JSON.parse(sessionStorage.getItem('cartItems')):[];
+  }
+
+  persistCartItems(){
+    sessionStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+  }
 
   addToCart(theCartItem: CartItem){
     //check if we already have the item in our cart
@@ -54,6 +60,7 @@ export class CartService {
 
     //log cart data just for debugging purposes
     this.logCartData(totalPriceValue, totalQuantityValue);
+    this.persistCartItems();
   }
 
   logCartData(totalPriceValue: number, totalQuantityValue: number) {
