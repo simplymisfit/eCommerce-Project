@@ -135,8 +135,13 @@ export class CheckoutComponent implements OnInit {
     this.rosochackiShopFormService.getStates(countryCode).subscribe(
       data => {
         if (formGroupName === 'shippingAddress') {
-
+          this.shippingAddressStates = data;
         }
+        else {
+          this.billingAddressStates = data;
+        }
+
+        formGroup.get('state').setValue(data[0]);
       }
     );
   }
