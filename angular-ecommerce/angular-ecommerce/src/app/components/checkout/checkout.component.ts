@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Country } from 'src/app/common/country';
+import { State } from 'src/app/common/state';
 import { RosochackiShopFormService } from 'src/app/services/rosochacki-shop-form.service';
 
 @Component({
@@ -18,6 +19,11 @@ export class CheckoutComponent implements OnInit {
   creditCardMonths: number[] = [];
 
   countries: Country[] = [];
+
+  shippingAddressStates: State[] = [];
+  billingAddressStates: State[] = [];
+  
+
   constructor(private formBuilder: FormBuilder,
               private rosochackiShopFormService: RosochackiShopFormService) { }
 
@@ -129,7 +135,7 @@ export class CheckoutComponent implements OnInit {
     this.rosochackiShopFormService.getStates(countryCode).subscribe(
       data => {
         if (formGroupName === 'shippingAddress') {
-          
+
         }
       }
     );
