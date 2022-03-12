@@ -100,8 +100,12 @@ export class CheckoutComponent implements OnInit {
     if (event.target.checked) {
       this.checkoutFormGroup.controls['billingAddress']
               .setValue(this.checkoutFormGroup.controls['shippingAddress'].value);
+
+      //bug fix for states
+      this.billingAddressStates = this.shippingAddressStates;
     } else {
       this.checkoutFormGroup.controls['billingAddress'].reset();
+      this.billingAddressStates = [];
     }
   }
 
@@ -134,8 +138,8 @@ export class CheckoutComponent implements OnInit {
     const countryCode = formGroup.value.country.code;
     const countryName = formGroup.value.country.name;
 
-    console.log(`{formGroupName} country code: ${countryCode}`);
-    console.log(`{formGroupName} country name: ${countryName}`);
+    console.log(`${formGroupName} country code: ${countryCode}`);
+    console.log(`${formGroupName} country name: ${countryName}`);
 
     this.rosochackiShopFormService.getStates(countryCode).subscribe(
       data => {
