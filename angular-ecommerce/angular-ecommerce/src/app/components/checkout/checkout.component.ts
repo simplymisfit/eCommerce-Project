@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { Country } from 'src/app/common/country';
 import { State } from 'src/app/common/state';
+import { CartService } from 'src/app/services/cart.service';
 import { RosochackiShopFormService } from 'src/app/services/rosochacki-shop-form.service';
 import { RosochackiShopValidators } from 'src/app/validators/rosochacki-shop-validators';
 
@@ -17,6 +18,7 @@ import { RosochackiShopValidators } from 'src/app/validators/rosochacki-shop-val
 })
 export class CheckoutComponent implements OnInit {
   checkoutFormGroup: FormGroup;
+
   totalPrice: number = 0;
   totalQuantity: number = 0;
 
@@ -30,7 +32,8 @@ export class CheckoutComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private rosochackiShopFormService: RosochackiShopFormService
+    private rosochackiShopFormService: RosochackiShopFormService,
+    private cartSerivce: CartService
   ) {}
 
   ngOnInit(): void {
