@@ -45,6 +45,18 @@ public class Order {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     private Set<OrderItem> orderItems = new HashSet<OrderItem>();
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    @ManyToOne
+    @JoinColumn(name = "shipping_address_id")
+    private Address shippingAddress;
+
+    @ManyToOne
+    @JoinColumn(name = "billing_address_id")
+    private Address billingAddress;
+
     public void add(OrderItem item) {
         if (item != null) {
             if (orderItems == null) {
