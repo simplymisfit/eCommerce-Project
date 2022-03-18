@@ -264,8 +264,13 @@ export class CheckoutComponent implements OnInit {
   }
   resetCart() {
     //reset cart data
+    this.cartSerivce.cartItems = [];
+    this.cartSerivce.totalPrice.next(0);
+    this.cartSerivce.totalQuantity.next(0);
     //reset the form
+    this.checkoutFormGroup.reset();
     //navigate back to the products page
+    this.router.navigateByUrl('/products');
   }
 
   copyShippingAddressToBillingAddress(event) {
