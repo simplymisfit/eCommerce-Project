@@ -38,6 +38,8 @@ const oktaConfig = Object.assign(
   myAppConfig.oidc
 );
 
+const oktaAuth = new OktaAuth(oktaConfig);
+
 const routes: Routes = [
   { path: 'login/callback', component: OktaCallbackComponent },
   { path: 'login', component: LoginComponent },
@@ -71,8 +73,9 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     NgbModule,
     ReactiveFormsModule,
+    OktaAuthModule,
   ],
-  providers: [ProductService],
+  providers: [ProductService, { provide: OKTA_CONFIG, useValue: { oktaAuth } }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
